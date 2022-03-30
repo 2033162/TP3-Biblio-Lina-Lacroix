@@ -3,9 +3,11 @@ package com.lina.programme_tp3_biblio.service;
 import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class ServiceClient {
 
     @Autowired
