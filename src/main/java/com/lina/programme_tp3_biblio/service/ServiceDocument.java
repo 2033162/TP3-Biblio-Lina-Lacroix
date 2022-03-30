@@ -3,9 +3,11 @@ package com.lina.programme_tp3_biblio.service;
 import com.lina.programme_tp3_biblio.modele.*;
 import com.lina.programme_tp3_biblio.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ServiceDocument {
     @Autowired
     private DocumentRepository documentRepository;

@@ -5,10 +5,12 @@ import com.lina.programme_tp3_biblio.modele.Document;
 import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
 import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class ServiceEmpruntDocuments {
 
     @Autowired

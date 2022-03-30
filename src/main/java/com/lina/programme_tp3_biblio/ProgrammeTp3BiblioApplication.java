@@ -17,9 +17,13 @@ public class ProgrammeTp3BiblioApplication implements CommandLineRunner {
 
     @Autowired
     private ServiceClient serviceClient;
+    @Autowired
     private ServiceDocument serviceDocument;
+    @Autowired
     private ServiceEmploye serviceEmploye;
+    @Autowired
     private ServiceEmpruntDocuments serviceEmpruntDocuments;
+    @Autowired
     private ServiceReservation serviceReservation;
 
     public static void main(String[] args) {
