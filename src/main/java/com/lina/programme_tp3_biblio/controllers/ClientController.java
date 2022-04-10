@@ -35,6 +35,14 @@ public class ClientController {
         return "index";
     }
 
+    @GetMapping("/clients")
+    public String getClients(Model model) {
+        model.addAttribute("pageTitle", "Ma bibliotheque");
+        var clients = serviceClient.findAllClients();
+        model.addAttribute("clients", clients);
+        return "clients";
+    }
+
     @GetMapping("/crudclient")
     public String getClientRequest(HttpServletRequest request,
                                    Model model) {
