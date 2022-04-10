@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Client</title>
+</head>
+<body>
+<form action="#" th:action="@{/clientcreate}" th:object="${clientForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label>Nom de famille</label></td>
+            <td><input type="text" th:field="*{nom}"/></td>
+        </tr>
+        <tr>
+            <td><label>Prenom</label></td>
+            <td><input type="text" th:field="*{prenom}"/></td>
+        </tr>
+        <tr>
+            <td><label>Rue</label></td>
+            <td><input type="text" th:field="*{rue}"/></td>
+        </tr>
+        <tr>
+            <td><label>Ville</label></td>
+            <td><input type="text" th:field="*{ville}"/></td>
+        </tr>
+        <tr>
+            <td><label>Code Postal</label></td>
+            <td><input type="text" th:field="*{codePostal}"/></td>
+        </tr>
+        <tr>
+            <td><label>Numero de telephone</label></td>
+            <td><input type="text" th:field="*{numeroTelephone}"/></td>
+        </tr>
+        <tr>
+            <td><label>Date d'inscription</label></td>
+            <td><input type="text" th:field="*{dateInscription}"/></td>
+        </tr>
+        <tr>
+            <td><label>Nombre d'emprunt en cour</label></td>
+            <td><input type="text" th:field="*{nbrEmpruntEnCour}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Sauve" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
