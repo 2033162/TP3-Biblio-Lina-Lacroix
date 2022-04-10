@@ -35,6 +35,14 @@ public class LivreController {
         return "index";
     }
 
+    @GetMapping("/livres")
+    public String getLivres(Model model) {
+        model.addAttribute("pageTitle", "Ma bibliotheque");
+        var livres = serviceDocument.findAllLivres();
+        model.addAttribute("livres", livres);
+        return "livres";
+    }
+
     @GetMapping("/crudlivre")
     public String getLivreRequest(HttpServletRequest request,
                                    Model model) {

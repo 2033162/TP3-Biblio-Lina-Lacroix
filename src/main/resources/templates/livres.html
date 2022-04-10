@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Livre</title>
+</head>
+<body>
+<h1>Page Livre</h1>
+<table>
+    <thead>
+        <th>Etat document</th>
+        <th>Genre document</th>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Editeur</th>
+        <th>Annee de publication</th>
+        <th>Nombre de pages</th>
+        <th>Genre livre</th>
+    </thead>
+    <tbody>
+        <th:block th:each="livre, stat : ${livres}">
+            <tr>
+                <td th:text="${livre.getEtatDocument()}">Lac</td>
+                <td th:text="${livre.getGenreDocument()}">Lina</td>
+                <td th:text="${livre.getTitre()}">Lac</td>
+                <td th:text="${livre.getAuteur()}">Lina</td>
+                <td th:text="${livre.getEditeur()}">Lac</td>
+                <td th:text="${livre.getAnneePublication()}">Lina</td>
+                <td th:text="${livre.getNbrPages()}">Lac</td>
+                <td th:text="${livre.getGenreLivre()}">Lina</td>
+            </tr>
+        </th:block>
+    </tbody>
+</table>
+</body>
+</html>

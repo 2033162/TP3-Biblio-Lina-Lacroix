@@ -108,6 +108,10 @@ public class ServiceDocument {
         //return documentRepository.getById(livreId);
     }
 
+    public List<Document> findAllLivres() {
+        return documentRepository.findAll();
+    }
+
     /*public List<Document> searchDocument(String genreDocument,
                                          EtatDocument etatDocument,
                                          String titre,
