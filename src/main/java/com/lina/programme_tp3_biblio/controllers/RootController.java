@@ -38,6 +38,18 @@ public class RootController {
         return "index";
     }
 
+    @GetMapping("/crudclient")
+    public String getClientRequest(HttpServletRequest request,
+                                   Model model) {
+        model.addAttribute("pageTitle", "Client");
+        var client = new Client();
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);;
+        if (inputFlashMap != null)
+            client = (Client) inputFlashMap.get("client");
+        model.addAttribute("client", client);
+        return "crudclient";
+    }
+
     @GetMapping("/clientedit/{id}")
     public String getClientRequest(HttpServletRequest request,
                                    Model model,
@@ -52,7 +64,7 @@ public class RootController {
     }
 
     @GetMapping("/clientcreate")
-    public String getClientRequest(@ModelAttribute ClientForm clientForm,
+    public String getClientCreate(@ModelAttribute ClientForm clientForm,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
         clientForm = new ClientForm(new Client());
