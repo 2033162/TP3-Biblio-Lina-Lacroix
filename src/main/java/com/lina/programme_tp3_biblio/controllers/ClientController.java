@@ -3,7 +3,6 @@ package com.lina.programme_tp3_biblio.controllers;
 import com.lina.programme_tp3_biblio.forms.ClientForm;
 import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.service.ServiceClient;
-import com.lina.programme_tp3_biblio.service.ServiceDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,15 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
-public class RootController {
-    Logger logger = LoggerFactory.getLogger(RootController.class);
+public class ClientController {
+    Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     private ServiceClient serviceClient;
-    private ServiceDocument serviceDocument;
 
-    public RootController(ServiceClient serviceClient, ServiceDocument serviceDocument) {
+    public ClientController(ServiceClient serviceClient) {
         this.serviceClient = serviceClient;
-        this.serviceDocument = serviceDocument;
     }
 
     @GetMapping("/")
