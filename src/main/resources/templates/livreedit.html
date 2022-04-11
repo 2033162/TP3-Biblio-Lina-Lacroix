@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Livre</title>
+</head>
+<body>
+<form action="#" th:action="@{livrecreate}" th:object="${livreForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label>Etat document</label></td>
+            <td><input type="text" th:field="*{etatDocument}"/></td>
+        </tr>
+        <tr>
+            <td><label>Genre document</label></td>
+            <td><input type="text" th:field="*{genreDocument}"/></td>
+        </tr>
+        <tr>
+            <td><label>Titre</label></td>
+            <td><input type="text" th:field="*{titre}"/></td>
+        </tr>
+        <tr>
+            <td><label>Auteur</label></td>
+            <td><input type="text" th:field="*{auteur}"/></td>
+        </tr>
+        <tr>
+            <td><label>Editeur</label></td>
+            <td><input type="text" th:field="*{editeur}"/></td>
+        </tr>
+        <tr>
+            <td><label>Annee de publication</label></td>
+            <td><input type="text" th:field="*{anneePublication}"/></td>
+        </tr>
+        <tr>
+            <td><label>Nombre de pages</label></td>
+            <td><input type="text" th:field="*{nbrPages}"/></td>
+        </tr>
+        <tr>
+            <td><label>Genre livre</label></td>
+            <td><input type="text" th:field="*{genreLivre}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
