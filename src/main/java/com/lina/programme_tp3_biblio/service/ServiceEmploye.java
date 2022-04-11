@@ -2,9 +2,7 @@ package com.lina.programme_tp3_biblio.service;
 
 import com.lina.programme_tp3_biblio.modele.Employe;
 import com.lina.programme_tp3_biblio.modele.Fonction;
-import com.lina.programme_tp3_biblio.repository.ClientRepository;
 import com.lina.programme_tp3_biblio.repository.EmployeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

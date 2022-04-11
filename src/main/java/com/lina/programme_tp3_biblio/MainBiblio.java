@@ -8,12 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lina.programme_tp3_biblio.service.*;
 
-import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 @SpringBootApplication
-public class ProgrammeTp3BiblioApplication implements CommandLineRunner {
+public class MainBiblio implements CommandLineRunner {
 
     @Autowired
     private ServiceClient serviceClient;
@@ -27,7 +25,7 @@ public class ProgrammeTp3BiblioApplication implements CommandLineRunner {
     private ServiceReservation serviceReservation;
 
     public static void main(String[] args) {
-        SpringApplication.run(ProgrammeTp3BiblioApplication.class, args);
+        SpringApplication.run(MainBiblio.class, args);
     }
 
     @Override

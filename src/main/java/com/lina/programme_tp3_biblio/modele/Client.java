@@ -30,6 +30,9 @@ public class Client {
     @OneToMany(mappedBy = "client")
     List<EmpruntDocuments> empruntDocuments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    List<Amende> amendes = new ArrayList<>();
+
     public Client(String nom,
                   String prenom,
                   String rue,

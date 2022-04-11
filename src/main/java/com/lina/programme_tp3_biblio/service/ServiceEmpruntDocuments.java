@@ -4,14 +4,10 @@ import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.modele.Document;
 import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
 import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class ServiceEmpruntDocuments {
