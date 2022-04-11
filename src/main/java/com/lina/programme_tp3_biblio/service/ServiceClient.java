@@ -11,8 +11,11 @@ import java.util.List;
 @Component
 public class ServiceClient {
 
-    @Autowired
     private ClientRepository clientRepository;
+
+    public ServiceClient(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public Client saveClient(String nom,
                            String prenom,

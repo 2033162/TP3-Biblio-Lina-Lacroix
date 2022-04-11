@@ -9,8 +9,12 @@ import java.util.List;
 
 @Component
 public class ServiceDocument {
-    @Autowired
+
     private DocumentRepository documentRepository;
+
+    public ServiceDocument(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+    }
 
     public CD saveCD(EtatDocument etatDocument,
                      String genreDocument,

@@ -12,8 +12,11 @@ import java.util.Date;
 @Component
 public class ServiceReservation {
 
-    @Autowired
     private ReservationRepository reservationRepository;
+
+    public ServiceReservation(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
 
     public Reservation saveReservation(Date dateReservation, Client client, Document document) {
         return reservationRepository.save(new Reservation(dateReservation, client, document));
