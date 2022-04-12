@@ -28,7 +28,7 @@ public class ClientController {
         this.serviceClient = serviceClient;
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/index", "index.html"})
     public String getRootRequest(Model model) {
         model.addAttribute("pageTitle", "Ma bibliotheque");
         model.addAttribute("h1Text", "La librairie de la ville de Javatown");
@@ -41,18 +41,6 @@ public class ClientController {
         var clients = serviceClient.findAllClients();
         model.addAttribute("clients", clients);
         return "clients";
-    }
-
-    @GetMapping("/crudclient")
-    public String getClientRequest(HttpServletRequest request,
-                                   Model model) {
-        model.addAttribute("pageTitle", "Client");
-        var client = new Client();
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);;
-        if (inputFlashMap != null)
-            client = (Client) inputFlashMap.get("client");
-        model.addAttribute("client", client);
-        return "crudclient";
     }
 
     @GetMapping("/clientedit/{id}")

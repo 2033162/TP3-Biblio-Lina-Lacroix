@@ -7,6 +7,8 @@ import lombok.Data;
 
 @Data
 public class LivreForm {
+    private static EtatDocument ETATDOCUMENT;
+    private static GenreLivre GENRELIVRE;
     private String id;
     private String etatDocument;
     private String genreDocument;
@@ -38,30 +40,46 @@ public class LivreForm {
     }
 
     public LivreForm() {
+        this(new Livre());
     }
 
     public LivreForm(Livre livre) {
         this(Long.toString(livre.getId()),
-                null,
+                livre.getEtatDocument() == null ? null : ,
                 livre.getGenreDocument(),
                 livre.getTitre(),
                 livre.getAuteur(),
                 livre.getEditeur(),
                 livre.getAnneePublication(),
                 livre.getNbrPages(),
-                null);
+                livre.getGenreLivre() == null ? null : );
     }
 
     public Livre toLivre() {
-        EtatDocument etatDocument = null;
-        GenreLivre genreLivre = null;
-        return new Livre(etatDocument,
+        EtatDocument bEtatDocument;
+        GenreLivre bGenreLivre;
+        try {
+            bEtatDocument = etatDocument == null ? null : ;
+            bGenreLivre = genreLivre == null ? null : ;
+        } catch (Exception e) {
+            bEtatDocument = null;
+            bGenreLivre = null;
+        }
+        final Livre livre = new Livre(bEtatDocument,
                 genreDocument,
                 titre,
                 auteur,
                 editeur,
                 anneePublication,
                 nbrPages,
-                genreLivre);
+                bGenreLivre);
+        long oldId;
+        try {
+            oldId = Long.parseLong(id);
+            if (oldId > 0)
+                livre.setId(oldId);
+        } catch (NumberFormatException e) {}
+
+        return livre;
     }
 }
