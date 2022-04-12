@@ -1,7 +1,10 @@
 package com.lina.programme_tp3_biblio.service;
 
 import com.lina.programme_tp3_biblio.modele.*;
+import com.lina.programme_tp3_biblio.repository.CdRepository;
 import com.lina.programme_tp3_biblio.repository.DocumentRepository;
+import com.lina.programme_tp3_biblio.repository.DvdRepository;
+import com.lina.programme_tp3_biblio.repository.LivreRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,9 +14,18 @@ import java.util.Optional;
 public class ServiceDocument {
 
     private DocumentRepository documentRepository;
+    private CdRepository cdRepository;
+    private DvdRepository dvdRepository;
+    private LivreRepository livreRepository;
 
-    public ServiceDocument(DocumentRepository documentRepository) {
+    public ServiceDocument(DocumentRepository documentRepository,
+                           CdRepository cdRepository,
+                           DvdRepository dvdRepository,
+                           LivreRepository livreRepository) {
         this.documentRepository = documentRepository;
+        this.cdRepository = cdRepository;
+        this.dvdRepository = dvdRepository;
+        this.livreRepository = livreRepository;
     }
 
     public CD saveCD(EtatDocument etatDocument,
@@ -38,16 +50,15 @@ public class ServiceDocument {
     }
 
     public CD saveCD(CD cd) {
-        return documentRepository.save(cd);
+        return cdRepository.save(cd);
     }
 
     public void removeCD(CD cd) {
-        documentRepository.delete(cd);
+        cdRepository.delete(cd);
     }
 
     public CD getCD(long cdID) {
-        return null;
-        //return documentRepository.getById(cdID);
+        return (CD) cdRepository.getById(cdID);
     }
 
     public DVD saveDVD(EtatDocument etatDocument,
@@ -69,16 +80,15 @@ public class ServiceDocument {
     }
 
     public DVD saveDVD(DVD dvd) {
-        return documentRepository.save(dvd);
+        return dvdRepository.save(dvd);
     }
 
     public void removeDVD(DVD dvd) {
-        documentRepository.delete(dvd);
+        dvdRepository.delete(dvd);
     }
 
     public DVD getDVD(long dvdID) {
-        return null;
-        //return documentRepository.getById(dvdID);
+        return (DVD) dvdRepository.getById(dvdID);
     }
 
     public Livre saveLivre(EtatDocument etatDocument,
@@ -100,24 +110,23 @@ public class ServiceDocument {
     }
 
     public Livre saveLivre(Livre livre) {
-        return documentRepository.save(livre);
+        return livreRepository.save(livre);
     }
 
     public void removeLivre(Livre livre) {
-        documentRepository.delete(livre);
+        livreRepository.delete(livre);
     }
 
     public Livre getLivre(long livreId) {
-        return null;
-        //return documentRepository.getById(livreId);
+        return (Livre) livreRepository.getById(livreId);
     }
 
-    public List<Document> findAllLivres() {
-        return documentRepository.findAll();
+    public List<Livre> findAllLivres() {
+        return livreRepository.findAll();
     }
 
     public Optional<Livre> findLivreById(long id) {
-        return null;//documentRepository.findById(id);
+        return livreRepository.findById(id);
     }
 
     /*public List<Document> searchDocument(String genreDocument,
