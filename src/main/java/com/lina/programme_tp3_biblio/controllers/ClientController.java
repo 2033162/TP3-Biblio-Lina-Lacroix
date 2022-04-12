@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class ClientController {
@@ -43,38 +42,49 @@ public class ClientController {
         return "clients";
     }
 
-    @GetMapping("/clientedit/{id}")
-    public String getClientRequest(HttpServletRequest request,
-                                   Model model,
-                                   @PathVariable(required = false) Long clientId) {
-        model.addAttribute("pageTitle", "Client");
-        var client = new Client();
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        if (inputFlashMap != null)
-            client = (Client) inputFlashMap.get("client");
-        model.addAttribute("client", client);
-        return "clientedit";
+    @GetMapping(value = {"/clientcreate"})
+    public String getClientCreate(Model model) {
+        var clientForm = new ClientForm();
+        model.addAttribute("clientForm", clientForm);
+        return "/clientedit";
     }
 
-    @GetMapping("/clientcreate")
-    public String getClientCreate(@ModelAttribute ClientForm clientForm,
-                                   Model model,
+    @PostMapping(value = {"/clientcreate"})
+    public RedirectView clientPost(@ModelAttribute ClientForm clientForm,
+                                   BindingResult errors,
                                    RedirectAttributes redirectAttributes) {
-        clientForm = new ClientForm(new Client());
-        model.addAttribute("clientForm", clientForm);
-        return "clientedit";
+        logger.info("client: " + clientForm);
+        final Client client = serviceClient.saveClient(clientForm.toClient());
+        clientForm.setId(Long.toString(client.getId()));
+
+        redirectAttributes.addFlashAttribute("clientForm", clientForm);
+        redirectAttributes.addAttribute("id", clientForm.getId());
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setContextRelative(true);
+        redirectView.setUrl("/clientedit/{id}");
+        return redirectView;
     }
 
-    @PostMapping("/clientcreate")
-    public String clientPost(@ModelAttribute ClientForm clientForm,
-                             BindingResult errors,
-                             Model model,
-                             RedirectAttributes redirectAttributes) {
-        logger.info("client: " + clientForm);
-        serviceClient.saveClient(clientForm.toClient());
-        redirectAttributes.addFlashAttribute("clientForm", clientForm);
-        model.addAttribute("pageTitle", "Client");
+    @GetMapping(value = {"/clientedit/{id}"})
+    public String getClientRequest(@ModelAttribute ClientForm clientForm,
+                                   Model model,
+                                   @PathVariable("id") String id) {
+        logger.info("Into getClientRequest with id " + id);
+        long clientId = getIdFromString(id);
+        final Optional<Client> clientById = serviceClient.findClientById(clientId);
+        clientForm = new ClientForm();
+        if (clientById.isPresent()) {
+            clientForm = new ClientForm(clientById.get());
+        }
         model.addAttribute("clientForm", clientForm);
-        return "redirect:clientedit/" + clientForm.getId();
+        return "/clientedit";
+    }
+
+    private long getIdFromString(String id) {
+        try {
+            return Long.parseLong(id);
+        } catch(NumberFormatException e) {}
+        return 0;
     }
 }

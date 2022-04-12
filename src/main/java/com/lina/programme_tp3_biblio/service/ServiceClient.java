@@ -4,8 +4,9 @@ import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.repository.ClientRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ServiceClient {
@@ -22,7 +23,7 @@ public class ServiceClient {
                            String ville,
                            String codePostal,
                            String numeroTelephone,
-                           Date dateInscription,
+                           LocalDate dateInscription,
                            int nbrEmpruntEnCour) {
         return clientRepository.save(new Client(nom,
                 prenom,
@@ -48,5 +49,9 @@ public class ServiceClient {
 
     public List<Client> findAllClients() {
         return clientRepository.findAll();
+    }
+
+    public Optional<Client> findClientById(long id) {
+        return clientRepository.findById(id);
     }
 }
