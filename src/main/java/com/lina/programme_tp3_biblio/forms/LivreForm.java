@@ -45,22 +45,22 @@ public class LivreForm {
 
     public LivreForm(Livre livre) {
         this(Long.toString(livre.getId()),
-                livre.getEtatDocument() == null ? null : ,
+                livre.getEtatDocument() == null ? null : String.valueOf(EtatDocument.valueOf(livre.getEtatDocument().toString())),
                 livre.getGenreDocument(),
                 livre.getTitre(),
                 livre.getAuteur(),
                 livre.getEditeur(),
                 livre.getAnneePublication(),
                 livre.getNbrPages(),
-                livre.getGenreLivre() == null ? null : );
+                livre.getGenreLivre() == null ? null : String.valueOf(GenreLivre.valueOf(livre.getGenreLivre().toString())));
     }
 
     public Livre toLivre() {
         EtatDocument bEtatDocument;
         GenreLivre bGenreLivre;
         try {
-            bEtatDocument = etatDocument == null ? null : ;
-            bGenreLivre = genreLivre == null ? null : ;
+            bEtatDocument = etatDocument == null ? null : EtatDocument.valueOf(etatDocument);
+            bGenreLivre = genreLivre == null ? null : GenreLivre.valueOf(genreLivre);
         } catch (Exception e) {
             bEtatDocument = null;
             bGenreLivre = null;
