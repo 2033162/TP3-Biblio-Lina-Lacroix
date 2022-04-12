@@ -30,7 +30,7 @@ public class ClientController {
 
     @GetMapping("/")
     public String getRootRequest(Model model) {
-        model.addAttribute("pageTitle1", "Ma bibliotheque");
+        model.addAttribute("pageTitle", "Ma bibliotheque");
         model.addAttribute("h1Text", "La librairie de la ville de Javatown");
         return "index";
     }

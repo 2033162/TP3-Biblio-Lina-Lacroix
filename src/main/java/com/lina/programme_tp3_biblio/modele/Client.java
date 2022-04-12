@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Client {
     private String ville;
     private String codePostal;
     private String numeroTelephone;
-    private Date dateInscription;
+    private LocalDate dateInscription;
     private int nbrEmpruntEnCour;
 
     @OneToMany(mappedBy = "client")
@@ -39,7 +40,7 @@ public class Client {
                   String ville,
                   String codePostal,
                   String numeroTelephone,
-                  Date dateInscription,
+                  LocalDate dateInscription,
                   int nbrEmpruntEnCour) {
         this.nom = nom;
         this.prenom = prenom;

@@ -3,10 +3,12 @@ package com.lina.programme_tp3_biblio.forms;
 import com.lina.programme_tp3_biblio.modele.Client;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class ClientForm {
+    private static DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String id;
     private String nom;
     private String prenom;
@@ -38,6 +40,7 @@ public class ClientForm {
     }
 
     public ClientForm() {
+        this(new Client());
     }
 
     public ClientForm(Client client) {
@@ -48,13 +51,18 @@ public class ClientForm {
                 client.getVille(),
                 client.getCodePostal(),
                 client.getNumeroTelephone(),
-                null,
+                client.getDateInscription() == null ? null : DATETIMEFORMATTER.format(client.getDateInscription()),
                 client.getNbrEmpruntEnCour());
     }
 
     public Client toClient() {
-        Date bDate = null;
-        return new Client(nom,
+        LocalDate bDate;
+        try {
+            bDate = dateInscription == null ? null : LocalDate.parse(dateInscription, DATETIMEFORMATTER);
+        } catch (Exception e) {
+            bDate = null;
+        }
+        final Client client = new Client(nom,
                 prenom,
                 rue,
                 ville,
@@ -62,5 +70,12 @@ public class ClientForm {
                 numeroTelephone,
                 bDate,
                 nbrEmpruntEnCour);
+        long oldId;
+        try {
+            oldId = Long.parseLong(id);
+            if (oldId > 0)
+                client.setId(oldId);
+        } catch (NumberFormatException e) {}
+        return client;
     }
 }
