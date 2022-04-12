@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class LivreController {
@@ -28,9 +27,9 @@ public class LivreController {
         this.serviceDocument = serviceDocument;
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/index", "index.html"})
     public String getRootRequest(Model model) {
-        model.addAttribute("pageTitle1", "Ma bibliotheque");
+        model.addAttribute("pageTitle", "Ma bibliotheque");
         model.addAttribute("h1Text", "La librairie de la ville de Javatown");
         return "index";
     }
@@ -43,50 +42,49 @@ public class LivreController {
         return "livres";
     }
 
-    @GetMapping("/crudlivre")
-    public String getLivreRequest(HttpServletRequest request,
-                                   Model model) {
-        model.addAttribute("pageTitle", "Livre");
-        var livre = new Livre();
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);;
-        if (inputFlashMap != null)
-            livre = (Livre) inputFlashMap.get("livre");
-        model.addAttribute("livre", livre);
-        return "crudlivre";
-    }
-
-    @GetMapping("/livreedit/{id}")
-    public String getLivreRequest(HttpServletRequest request,
-                                   Model model,
-                                   @PathVariable(required = false) Long livreId) {
-        model.addAttribute("pageTitle", "Livre");
-        var livre = new Livre();
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        if (inputFlashMap != null)
-            livre = (Livre) inputFlashMap.get("livre");
-        model.addAttribute("livre", livre);
-        return "livreedit";
-    }
-
-    @GetMapping("/livrecreate")
-    public String getLivreCreate(@ModelAttribute LivreForm livreForm,
-                                  Model model,
-                                  RedirectAttributes redirectAttributes) {
-        livreForm = new LivreForm(new Livre());
+    @GetMapping(value = {"/livrecreate"})
+    public String getLivreCreate(Model model) {
+        var livreForm = new LivreForm();
         model.addAttribute("livreForm", livreForm);
-        return "livreedit";
+        return "/livreedit";
     }
 
-    @PostMapping("/livrecreate")
-    public String livrePost(@ModelAttribute LivreForm livreForm,
-                             BindingResult errors,
-                             Model model,
-                             RedirectAttributes redirectAttributes) {
+    @PostMapping(value = {"/livrecreate"})
+    public RedirectView livrePost(@ModelAttribute LivreForm livreForm,
+                                   BindingResult errors,
+                                   RedirectAttributes redirectAttributes) {
         logger.info("livre: " + livreForm);
-        serviceDocument.saveLivre(livreForm.toLivre());
+        final Livre livre = serviceDocument.saveLivre(livreForm.toLivre());
+        livreForm.setId(Long.toString(livre.getId()));
+
         redirectAttributes.addFlashAttribute("livreForm", livreForm);
-        model.addAttribute("pageTitle", "Livre");
+        redirectAttributes.addAttribute("id", livreForm.getId());
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setContextRelative(true);
+        redirectView.setUrl("/livreedit/{id}");
+        return redirectView;
+    }
+
+    @GetMapping(value = {"/livreedit/{id}"})
+    public String getLivreRequest(@ModelAttribute LivreForm livreForm,
+                                   Model model,
+                                   @PathVariable("id") String id) {
+        logger.info("Into getLivreRequest with id " + id);
+        long livreId = getIdFromString(id);
+        final Optional<Livre> livreById = serviceDocument.findLivreById(livreId);
+        livreForm = new LivreForm();
+        if (livreById.isPresent()) {
+            livreForm = new LivreForm(livreById.get());
+        }
         model.addAttribute("livreForm", livreForm);
-        return "redirect:livreedit/" + livreForm.getId();
+        return "/livreedit";
+    }
+
+    private long getIdFromString(String id) {
+        try {
+            return Long.parseLong(id);
+        } catch(NumberFormatException e) {}
+        return 0;
     }
 }

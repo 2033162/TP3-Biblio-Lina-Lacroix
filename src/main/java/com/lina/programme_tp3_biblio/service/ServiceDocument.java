@@ -5,6 +5,7 @@ import com.lina.programme_tp3_biblio.repository.DocumentRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ServiceDocument {
@@ -113,6 +114,10 @@ public class ServiceDocument {
 
     public List<Document> findAllLivres() {
         return documentRepository.findAll();
+    }
+
+    public Optional<Livre> findLivreById(long id) {
+        return null;//documentRepository.findById(id);
     }
 
     /*public List<Document> searchDocument(String genreDocument,
