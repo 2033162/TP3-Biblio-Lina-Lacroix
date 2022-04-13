@@ -37,7 +37,7 @@ public class ServiceDocument {
                      String genreMusique,
                      String compositeur,
                      String interprete) {
-        return documentRepository.save(new CD(etatDocument,
+        return cdRepository.save(new CD(etatDocument,
                 genreDocument,
                 titre,
                 auteur,
@@ -58,7 +58,7 @@ public class ServiceDocument {
     }
 
     public CD getCD(long cdID) {
-        return (CD) cdRepository.getById(cdID);
+        return cdRepository.getById(cdID);
     }
 
     public DVD saveDVD(EtatDocument etatDocument,
@@ -69,7 +69,7 @@ public class ServiceDocument {
                        int anneePublication,
                        int duree,
                        String genreFilm) {
-        return documentRepository.save(new DVD(etatDocument,
+        return dvdRepository.save(new DVD(etatDocument,
                 genreDocument,
                 titre,
                 auteur,
@@ -88,7 +88,7 @@ public class ServiceDocument {
     }
 
     public DVD getDVD(long dvdID) {
-        return (DVD) dvdRepository.getById(dvdID);
+        return dvdRepository.getById(dvdID);
     }
 
     public Livre saveLivre(EtatDocument etatDocument,
@@ -99,7 +99,7 @@ public class ServiceDocument {
                            int anneePublication,
                            int nbrPages,
                            GenreLivre genreLivre) {
-        return documentRepository.save(new Livre(etatDocument,
+        return livreRepository.save(new Livre(etatDocument,
                 genreDocument,
                 titre,
                 auteur,
@@ -118,7 +118,7 @@ public class ServiceDocument {
     }
 
     public Livre getLivre(long livreId) {
-        return (Livre) livreRepository.getById(livreId);
+        return livreRepository.getById(livreId);
     }
 
     public List<Livre> findAllLivres() {
