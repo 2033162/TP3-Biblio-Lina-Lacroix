@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.lina.programme_tp3_biblio.service.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class MainBiblio implements CommandLineRunner {
@@ -139,7 +140,7 @@ public class MainBiblio implements CommandLineRunner {
                 "Montreal",
                 "H05C42",
                 "514-900-5698",
-                new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2022"),
+                getDateFromLocalDate(2022, 2, 20),
                 1);
 
         serviceClient.saveClient(client);
@@ -274,5 +275,9 @@ public class MainBiblio implements CommandLineRunner {
         var client4 = serviceClient.getClient(client.getId());
         serviceClient.removeClient(client);
         System.out.println(client4);
+    }
+
+    private LocalDate getDateFromLocalDate(int year, int month, int day) {
+        return LocalDate.of(year, month, day);
     }
 }
