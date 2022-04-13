@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ServiceEmpruntDocuments {
@@ -42,9 +44,9 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.getById(empruntDocumentsId);
     }
 
-    /*public List<EmpruntDocuments> getClientEmprunt(long clientId) {
+    public Optional<EmpruntDocuments> getClientEmprunt(long clientId) {
         return empruntDocumentRepository.getClientEmprunt(clientId);
-    }*/
+    }
 
     /*public String faireEmprunt(Client client, Document document) {
         return empruntDocumentRepository.faireEmprunt(client, document);

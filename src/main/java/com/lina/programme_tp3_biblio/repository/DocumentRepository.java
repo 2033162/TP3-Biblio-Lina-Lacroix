@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
-    @Query(value = "SELECT d FROM Document d WHERE UPPER(d.genreDocument) = UPPER(:genreDocument) and UPPER(d.etatDocument) = UPPER(:etatDocument) and UPPER(d.titre) = UPPER(:titre) and UPPER(d.auteur) = UPPER(:auteur) and UPPER(d.editeur) = UPPER(:editeur) and UPPER(d.anneePublication) = UPPER(:anneePublication)")
-    Optional<Document> searchDocument(@Param("") String genreDocument,
-                                      @Param("") EtatDocument etatDocument,
-                                      @Param("") String titre,
-                                      @Param("") String auteur,
-                                      @Param("") String editeur,
-                                      @Param("") int anneePublication);
+    @Query(value = "SELECT d FROM Document d WHERE LOWER(d.genreDocument) = LOWER(:genreDocument) and LOWER(d.etatDocument) = LOWER(:etatDocument) and LOWER(d.titre) = LOWER(:titre) and LOWER(d.auteur) = LOWER(:auteur) and LOWER(d.editeur) = LOWER(:editeur) and LOWER(d.anneePublication) = LOWER(:anneePublication)")
+    Optional<Document> searchDocument(@Param("genreDocument") String genreDocument,
+                                      @Param("etatDocument") EtatDocument etatDocument,
+                                      @Param("titre") String titre,
+                                      @Param("auteur") String auteur,
+                                      @Param("editeur") String editeur,
+                                      @Param("anneePublication") int anneePublication);
 
     /*
     public List<Documents> rechercheDocument(String genreDocument, EtatDocument etatDocument, String titre, String auteur, String editeur, int anneePublication) {
