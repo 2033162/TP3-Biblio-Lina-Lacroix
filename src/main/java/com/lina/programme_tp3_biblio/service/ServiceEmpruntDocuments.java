@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ServiceEmpruntDocuments {
@@ -51,7 +50,7 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.faireEmprunt(client, document);
     }*/
 
-    public Long[] getNbrEmpruntParMois() {
+    /*public Long[] getNbrEmpruntParMois() {
 
         List<Object[]> empruntParMois = empruntDocumentRepository.getNbrEmpruntParMois();
 
@@ -62,5 +61,5 @@ public class ServiceEmpruntDocuments {
         }
 
         return nbrEmpruntParMois;
-    }
+    }*/
 }

@@ -10,6 +10,6 @@ public interface EmpruntDocumentRepository extends JpaRepository<EmpruntDocument
     @Query(value = "SELECT e FROM EmpruntDocuments e WHERE e.client.id = :clientId")
     List<EmpruntDocuments> getClientEmprunt(@Param("clientId") long clientId);
 
-    @Query(value = "SELECT MONTH(dateInitial) AS mois, COUNT(*) AS nbr_emprunt from EmpruntDocuments e GROUP BY MONTH(dateInitial) ORDER BY MONTH(dateInitial)", nativeQuery = true)
-    List<Object[]> getNbrEmpruntParMois();
+    /*@Query(value = "SELECT MONTH(dateInitial) AS mois, COUNT(*) AS nbr_emprunt from EmpruntDocuments e GROUP BY MONTH(dateInitial) ORDER BY MONTH(dateInitial)")
+    List<Object[]> getNbrEmpruntParMois();*/
 }
