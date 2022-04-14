@@ -52,11 +52,7 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.faireEmprunt(client, document);
     }*/
 
-    @Transactional
-    public void faireEmprunt(Client client, Document document) {
-    }
-
-    /*public Long[] getNbrEmpruntParMois() {
+    public Long[] getNbrEmpruntParMois() {
 
         List<Object[]> empruntParMois = empruntDocumentRepository.getNbrEmpruntParMois();
 
@@ -67,5 +63,5 @@ public class ServiceEmpruntDocuments {
         }
 
         return nbrEmpruntParMois;
-    }*/
+    }
 }

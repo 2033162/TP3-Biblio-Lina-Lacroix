@@ -129,17 +129,13 @@ public class ServiceDocument {
         return livreRepository.findById(id);
     }
 
-    /*public List<Document> searchDocument(String genreDocument,
-                                         EtatDocument etatDocument,
-                                         String titre,
-                                         String auteur,
-                                         String editeur,
-                                         int anneePublication) {
-        return documentRepository.searchDocument(genreDocument,
-                etatDocument,
-                titre,
+    public Optional<Document> searchDocument(String titre,
+                                             String auteur,
+                                             int anneePublication,
+                                             String genreDocument) {
+        return documentRepository.searchDocument(titre,
                 auteur,
-                editeur,
-                anneePublication);
-    }*/
+                anneePublication,
+                genreDocument);
+    }
 }

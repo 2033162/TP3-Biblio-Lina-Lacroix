@@ -10,21 +10,15 @@ import java.util.Optional;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
-    @Query(value = "SELECT d FROM Document d WHERE LOWER(d.genreDocument) = LOWER(:genreDocument) and LOWER(d.etatDocument) = LOWER(:etatDocument) and LOWER(d.titre) = LOWER(:titre) and LOWER(d.auteur) = LOWER(:auteur) and LOWER(d.editeur) = LOWER(:editeur) and LOWER(d.anneePublication) = LOWER(:anneePublication)")
-    Optional<Document> searchDocument(@Param("genreDocument") String genreDocument,
-                                      @Param("etatDocument") EtatDocument etatDocument,
-                                      @Param("titre") String titre,
+    @Query(value = "SELECT d FROM Document d WHERE LOWER(concat('%', d.titre, '%')) like LOWER(concat('%', :titre, '%')) and LOWER(d.auteur) = LOWER(:auteur) and LOWER(d.anneePublication) = LOWER(:anneePublication) and LOWER(d.genreDocument) = LOWER(:genreDocument)")
+    Optional<Document> searchDocument(@Param("titre") String titre,
                                       @Param("auteur") String auteur,
-                                      @Param("editeur") String editeur,
-                                      @Param("anneePublication") int anneePublication);
+                                      @Param("anneePublication") int anneePublication,
+                                      @Param("genreDocument") String genreDocument);
 
     /*
     public List<Documents> rechercheDocument(String genreDocument, EtatDocument etatDocument, String titre, String auteur, String editeur, int anneePublication) {
         String where = "";
-        if (!genreDocument.trim().equals("")) {
-            where += (where.equals("") ? "" : " AND ");
-            where += " (d.genreDocument='" + genreDocument + "')";
-        }
 
         if (!titre.trim().equals("")) {
             where += (where.equals("") ? "" : " AND ");
@@ -36,14 +30,14 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
             where += " (d.auteur='" + auteur + "')";
         }
 
-        if (!editeur.trim().equals("")) {
-            where += (where.equals("") ? "" : " AND ");
-            where += " (d.editeur='" + editeur + "')";
-        }
-
         if (anneePublication != 0) {
             where += (where.equals("") ? "" : " AND ");
             where += " (d.anneePublication=" + anneePublication + ")";
+        }
+
+        if (!genreDocument.trim().equals("")) {
+            where += (where.equals("") ? "" : " AND ");
+            where += " (d.genreDocument='" + genreDocument + "')";
         }
 
         where =  " WHERE " + where;
