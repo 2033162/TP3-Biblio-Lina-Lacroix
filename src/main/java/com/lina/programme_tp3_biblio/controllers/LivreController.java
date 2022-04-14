@@ -27,13 +27,6 @@ public class LivreController {
         this.serviceDocument = serviceDocument;
     }
 
-    @GetMapping(value = {"/", "/index", "index.html"})
-    public String getRootRequest(Model model) {
-        model.addAttribute("pageTitle", "Ma bibliotheque");
-        model.addAttribute("h1Text", "La librairie de la ville de Javatown");
-        return "index";
-    }
-
     @GetMapping("/livres")
     public String getLivres(Model model) {
         model.addAttribute("pageTitle", "Ma bibliotheque");

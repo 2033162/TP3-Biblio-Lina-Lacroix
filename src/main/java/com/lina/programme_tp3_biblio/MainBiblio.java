@@ -33,9 +33,9 @@ public class MainBiblio implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("\nCRUD - CD");
-        var cd = new CD(EtatDocument.DISPONIBLE,
-                Document.C_CD,
+        final CD cd = serviceDocument.saveCD(
+                EtatDocument.DISPONIBLE,
+                "CD",
                 "harry potter",
                 "JK. Rolling",
                 "maison edition",
@@ -43,25 +43,7 @@ public class MainBiblio implements CommandLineRunner {
                 "classique",
                 "JK. Rolling",
                 "michel");
-
-        serviceDocument.saveCD(cd);
-        var cd2 = serviceDocument.getCD(cd.getId());
-        System.out.println(cd2);
-
-        /*cd.setGenreMusique("jazz");
-        serviceDocument.updateCD(cd);
-        var cd3 = serviceDocument.getCD(cd.getId());
-        System.out.println(cd3);*/
-
-        var cd4 = serviceDocument.getCD(cd.getId());
-        serviceDocument.removeCD(cd);
-        System.out.println(cd4);
-
-
-
-
-        System.out.println("\nCRUD - DVD");
-        var dvd = new DVD(
+        final DVD dvd = serviceDocument.saveDVD(
                 EtatDocument.ENDOMMAGE,
                 Document.C_DVD,
                 "bobby bob",
@@ -70,26 +52,7 @@ public class MainBiblio implements CommandLineRunner {
                 2018,
                 44,
                 "drame");
-
-        serviceDocument.saveDVD(dvd);
-        var dvd2 = serviceDocument.getDVD(dvd.getId());
-        System.out.println(dvd2);
-
-        /*dvd.setEtatDocument(EtatDocument.DISPONIBLE);
-        serviceDocument.updateDVD(dvd);
-        var dvd3 = serviceDocument.getDVD(dvd.getId());
-        System.out.println(dvd3);*/
-
-        var dvd4 = serviceDocument.getDVD(dvd.getId());
-        serviceDocument.removeDVD(dvd);
-        System.out.println(dvd4);
-
-
-
-
-
-        System.out.println("\nCRUD - Livre");
-        var livre = new Livre(
+        final Livre livre = serviceDocument.saveLivre(
                 EtatDocument.EMPRUNTE,
                 Document.C_LIVRE,
                 "avengers",
@@ -98,44 +61,11 @@ public class MainBiblio implements CommandLineRunner {
                 2020,
                 230,
                 GenreLivre.ROMAN);
-        serviceDocument.saveLivre(livre);
-        var livre2 = serviceDocument.getLivre(livre.getId());
-        System.out.println(livre2);
-
-        /*livre.setNbrPages(900);
-        serviceDocument.updateLivre(livre);
-        var livre3 = serviceDocument.getLivre(livre.getId());
-        System.out.println(livre3);*/
-
-        var livre4 = serviceDocument.getLivre(livre.getId());
-        serviceDocument.removeLivre(livre);
-        System.out.println(livre4);
-
-
-
-
-        System.out.println("\nCRUD - Employe");
-        var employe = new Employe(
+        final Employe employe = serviceEmploye.saveEmploye(
                 "bernadette",
                 "carmier",
                 Fonction.GESTIONNAIRE);
-        serviceEmploye.saveEmploye(employe);
-        var employe2 = serviceEmploye.getEmploye(employe.getId());
-        System.out.println(employe2);
-
-        /*employe.setFonction(Fonction.PREPOSE);
-        serviceEmploye.updateEmploye(employe);
-        var employe3 = serviceEmploye.getEmploye(employe.getId());
-        System.out.println(employe3);*/
-
-        var employe4 = serviceEmploye.getEmploye(employe.getId());
-        serviceEmploye.removeEmploye(employe);
-        System.out.println(employe4);
-
-
-
-        System.out.println("\nCRUD - Client");
-        var client = new Client(
+        final Client client = serviceClient.saveClient(
                 "John",
                 "Smith",
                 "Daragon",
@@ -144,90 +74,118 @@ public class MainBiblio implements CommandLineRunner {
                 "514-900-5698",
                 getDateFromLocalDate(2022, 2, 20),
                 1);
+        final Reservation reservation = serviceReservation.saveReservation(
+                new SimpleDateFormat("dd/MM/yyyy").parse("05/10/2000"),
+                client,
+                livre);
+        final EmpruntDocuments empruntDocuments = serviceEmpruntDocuments.saveEmpruntDocuments(
+                new SimpleDateFormat("dd/MM/yyyy").parse("15/03/2018"),
+                new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2022"),
+                2,
+                client,
+                dvd);
 
+
+        System.out.println("\nCRUD - CD");
+        serviceDocument.saveCD(cd);
+        var cd2 = serviceDocument.getCD(cd.getId());
+        System.out.println(cd2);
+
+        cd.setGenreMusique("jazz");
+        serviceDocument.saveCD(cd);
+        var cd3 = serviceDocument.getCD(cd.getId());
+        System.out.println(cd3);
+
+        var cd4 = serviceDocument.getCD(cd.getId());
+        serviceDocument.removeCD(cd);
+        System.out.println(cd4);
+
+
+        System.out.println("\nCRUD - DVD");
+        serviceDocument.saveDVD(dvd);
+        var dvd2 = serviceDocument.getDVD(dvd.getId());
+        System.out.println(dvd2);
+
+        dvd.setEtatDocument(EtatDocument.DISPONIBLE);
+        serviceDocument.saveDVD(dvd);
+        var dvd3 = serviceDocument.getDVD(dvd.getId());
+        System.out.println(dvd3);
+
+        var dvd4 = serviceDocument.getDVD(dvd.getId());
+        serviceDocument.removeDVD(dvd);
+        System.out.println(dvd4);
+
+
+        System.out.println("\nCRUD - Livre");
+        serviceDocument.saveLivre(livre);
+        var livre2 = serviceDocument.getLivre(livre.getId());
+        System.out.println(livre2);
+
+        livre.setNbrPages(900);
+        serviceDocument.saveLivre(livre);
+        var livre3 = serviceDocument.getLivre(livre.getId());
+        System.out.println(livre3);
+
+        var livre4 = serviceDocument.getLivre(livre.getId());
+        serviceDocument.removeLivre(livre);
+        System.out.println(livre4);
+
+
+        System.out.println("\nCRUD - Employe");
+        serviceEmploye.saveEmploye(employe);
+        var employe2 = serviceEmploye.getEmploye(employe.getId());
+        System.out.println(employe2);
+
+        employe.setFonction(Fonction.PREPOSE);
+        serviceEmploye.saveEmploye(employe);
+        var employe3 = serviceEmploye.getEmploye(employe.getId());
+        System.out.println(employe3);
+
+        var employe4 = serviceEmploye.getEmploye(employe.getId());
+        serviceEmploye.removeEmploye(employe);
+        System.out.println(employe4);
+
+
+        System.out.println("\nCRUD - Client");
         serviceClient.saveClient(client);
         var client2 = serviceClient.getClient(client.getId());
         System.out.println(client2);
 
-        /*client.setRue("Drolet");
-        serviceClient.updateClient(client);
+        client.setRue("Drolet");
+        serviceClient.saveClient(client);
         var client3 = serviceClient.getClient(client.getId());
-        System.out.println(client3);*/
-
+        System.out.println(client3);
         //Delete du client à la fin des opérations
 
 
-
-
         System.out.println("\nCRUD - Reservation");
-        livre = new Livre(
-                EtatDocument.EMPRUNTE,
-                Document.C_LIVRE,
-                "avengers",
-                "Josh whedon",
-                "marvel",
-                2020,
-                230,
-                GenreLivre.ROMAN);
-        serviceDocument.saveLivre(livre);
-        livre2 = serviceDocument.getLivre(livre.getId());
-        System.out.println(livre2);
-
-        var reservation = new Reservation(
-                new SimpleDateFormat("dd/MM/yyyy").parse("05/10/2000"),
-                client,
-                livre);
         serviceReservation.saveReservation(reservation);
         var reservation2 = serviceReservation.getReservation(reservation.getId());
         System.out.println(reservation2);
 
-        /*reservation.setDateReservation(new SimpleDateFormat("dd/MM/yyyy").parse("13/03/2022"));
-        serviceReservation.updateReservation(reservation);
+        reservation.setDateReservation(new SimpleDateFormat("dd/MM/yyyy").parse("13/03/2022"));
+        serviceReservation.saveReservation(reservation);
         var reservation3 = serviceReservation.getReservation(reservation.getId());
-        System.out.println(reservation3);*/
+        System.out.println(reservation3);
 
         var reservation4 = serviceReservation.getReservation(reservation.getId());
         serviceReservation.removeReservation(reservation);
         System.out.println(reservation4);
 
 
-
-
         System.out.println("\nCRUD - EmpruntDocuments");
-        dvd = new DVD(
-                EtatDocument.ENDOMMAGE,
-                Document.C_DVD,
-                "bobby bob",
-                "lilo lee",
-                "edition bop",
-                2018,
-                44,
-                "drame");
-
-        serviceDocument.saveDVD(dvd);
-        dvd2 = serviceDocument.getDVD(dvd.getId());
-        System.out.println(dvd2);
-
-        var empruntDocuments = new EmpruntDocuments(
-                new SimpleDateFormat("dd/MM/yyyy").parse("15/03/2018"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2022"),
-                2,
-                client,
-                dvd);
         serviceEmpruntDocuments.saveEmpruntDocuments(empruntDocuments);
         var empruntDocuments2 = serviceEmpruntDocuments.getEmpruntDocuments(empruntDocuments.getId());
         System.out.println(empruntDocuments2);
 
-        /*empruntDocuments.setNbrRappel(0);
-        serviceEmpruntDocuments.updateEmpruntDocuments(empruntDocuments);
+        empruntDocuments.setNbrRappel(0);
+        serviceEmpruntDocuments.saveEmpruntDocuments(empruntDocuments);
         var empruntDocuments3 = serviceEmpruntDocuments.getEmpruntDocuments(empruntDocuments.getId());
-        System.out.println(empruntDocuments3);*/
+        System.out.println(empruntDocuments3);
 
         var empruntDocuments4 = serviceEmpruntDocuments.getEmpruntDocuments(empruntDocuments.getId());
         serviceEmpruntDocuments.removeEmpruntDocuments(empruntDocuments);
         System.out.println(empruntDocuments4);
-
-
 
 
         System.out.println("\nRESULTAT RECHERCHE DOCUMENTS :");
@@ -241,10 +199,8 @@ public class MainBiblio implements CommandLineRunner {
         System.out.println();
 
 
-
         /*System.out.println("\nFaire un emprunt");
         System.out.println(serviceEmpruntDocuments.faireEmprunt(client, livre));*/
-
 
 
         System.out.println("\nNOMBRE D'EMPRUNT PAR MOIS :");
@@ -263,12 +219,9 @@ public class MainBiblio implements CommandLineRunner {
         System.out.println();
 
 
-
-        /*System.out.println("\nDelete empruntDocument");
+        System.out.println("\nDelete empruntDocument");
         serviceEmpruntDocuments.removeEmpruntDocuments(clientEmprunt.get(0));
-        System.out.println(clientEmprunt.get(0));*/
-
-
+        System.out.println(clientEmprunt.get(0));
 
 
         System.out.println("\nDelete client");
