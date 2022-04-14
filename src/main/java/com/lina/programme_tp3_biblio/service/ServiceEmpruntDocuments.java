@@ -6,7 +6,6 @@ import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
 import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +43,7 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.getById(empruntDocumentsId);
     }
 
-    public Optional<EmpruntDocuments> getClientEmprunt(long clientId) {
+    public List<EmpruntDocuments> getClientEmprunt(long clientId) {
         return empruntDocumentRepository.getClientEmprunt(clientId);
     }
 

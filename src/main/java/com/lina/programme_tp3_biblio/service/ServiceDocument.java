@@ -129,7 +129,7 @@ public class ServiceDocument {
         return livreRepository.findById(id);
     }
 
-    public Optional<Document> searchDocument(String titre,
+    public List<Document> searchDocument(String titre,
                                              String auteur,
                                              int anneePublication,
                                              String genreDocument) {

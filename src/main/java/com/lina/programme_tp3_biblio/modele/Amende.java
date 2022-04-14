@@ -19,7 +19,7 @@ public class Amende {
     @ToString.Exclude
     private Client client;
 
-    private long unJourAmende = 2L;
+    private double unJourAmende = 0.25;
     private long sommeAmende;
 
     public Amende(Client client, long unJourAmende, long sommeAmende) {

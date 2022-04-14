@@ -8,8 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lina.programme_tp3_biblio.service.*;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class MainBiblio implements CommandLineRunner {
@@ -228,17 +230,15 @@ public class MainBiblio implements CommandLineRunner {
 
 
 
-        /*System.out.println("\nLISTE DOCUMENTS :");
-        List<Document> listeDocuments = serviceDocument.rechercheDocument("",
-                EtatDocument.ENDOMMAGE,
-                "bob",
-                "",
-                "",
-                0);
+        System.out.println("\nRESULTAT RECHERCHE DOCUMENTS :");
+        List<Document> listeDocuments = serviceDocument.searchDocument("bob",
+                "JK. Rolling",
+                1980,
+                "livre");
         listeDocuments.forEach((document) -> {
             System.out.println(document.toStringDocument());
         });
-        System.out.println();*/
+        System.out.println();
 
 
 
@@ -247,20 +247,20 @@ public class MainBiblio implements CommandLineRunner {
 
 
 
-        /*System.out.println("\nNOMBRE D'EMPRUNT PAR MOIS :");
+        System.out.println("\nNOMBRE D'EMPRUNT PAR MOIS :");
         Long[] nbrEmpruntParMois = serviceEmpruntDocuments.getNbrEmpruntParMois();
         for (int i = 0; i < nbrEmpruntParMois.length; i++) {
             System.out.println(new DateFormatSymbols().getMonths()[i] + "  " + nbrEmpruntParMois[i]);
         }
-        System.out.println();*/
+        System.out.println();
 
 
-        /*System.out.println("\nListe des emprunts du client:");
+        System.out.println("\nListe des emprunts du client:");
         var clientEmprunt = serviceEmpruntDocuments.getClientEmprunt(client.getId());
         for (EmpruntDocuments empruntDocument: clientEmprunt) {
             System.out.println(empruntDocument);
         }
-        System.out.println();*/
+        System.out.println();
 
 
 
