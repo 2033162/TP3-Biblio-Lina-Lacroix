@@ -14,13 +14,14 @@ public class CD extends Document {
     private String compositeur;
     private String interprete;
 
-    public CD(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, String genreMusique, String compositeur, String interprete) {
+    public CD(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, int nbrExemplaire, String genreMusique, String compositeur, String interprete) {
         this.setEtatDocument(etatDocument);
         this.setGenreDocument(genreDocument);
         this.setTitre(titre);
         this.setAuteur(auteur);
         this.setEditeur(editeur);
         this.setAnneePublication(anneePublication);
+        this.setNbrExemplaire(nbrExemplaire);
         this.genreMusique = genreMusique;
         this.compositeur = compositeur;
         this.interprete = interprete;

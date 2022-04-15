@@ -27,6 +27,7 @@ public abstract class Document {
     private String auteur;
     private String editeur;
     private int anneePublication;
+    private int nbrExemplaire;
 
     @OneToMany(mappedBy = "document")
     List<Reservation> reservations = new ArrayList<>();
@@ -34,13 +35,14 @@ public abstract class Document {
     @OneToMany(mappedBy = "document")
     List<EmpruntDocuments> empruntDocuments = new ArrayList<>();
 
-    public Document(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication) {
+    public Document(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, int nbrExemplaire) {
         this.genreDocument = genreDocument;
         this.etatDocument = etatDocument;
         this.titre = titre;
         this.auteur = auteur;
         this.editeur = editeur;
         this.anneePublication = anneePublication;
+        this.nbrExemplaire = nbrExemplaire;
     }
 
     public Document getDocument() {
@@ -54,7 +56,8 @@ public abstract class Document {
                 ", titre='" + titre + '\'' +
                 ", auteur='" + auteur + '\'' +
                 ", editeur='" + editeur + '\'' +
-                ", anneePublication=" + anneePublication +
+                ", anneePublication=" + anneePublication + '\'' +
+                ", nbrExemplaire=" + nbrExemplaire +
                 '}';
     }
 }

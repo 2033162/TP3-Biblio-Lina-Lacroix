@@ -43,6 +43,7 @@ public class ServiceDocument {
                 auteur,
                 editeur,
                 anneePublication,
+                3,
                 genreMusique,
                 compositeur,
                 interprete
@@ -75,6 +76,7 @@ public class ServiceDocument {
                 auteur,
                 editeur,
                 anneePublication,
+                5,
                 duree,
                 genreFilm));
     }
@@ -105,6 +107,7 @@ public class ServiceDocument {
                 auteur,
                 editeur,
                 anneePublication,
+                2,
                 nbrPages,
                 genreLivre));
     }

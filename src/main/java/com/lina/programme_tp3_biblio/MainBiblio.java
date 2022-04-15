@@ -154,8 +154,8 @@ public class MainBiblio implements CommandLineRunner {
         System.out.println();
 
 
-        /*System.out.println("\nFaire un emprunt");
-        System.out.println(serviceEmpruntDocuments.faireEmprunt(client, livre));*/
+        System.out.println("\nFaire un emprunt");
+        System.out.println(serviceEmpruntDocuments.faireEmprunt(client, livre));
 
 
         System.out.println("\nListe des emprunts du client:");

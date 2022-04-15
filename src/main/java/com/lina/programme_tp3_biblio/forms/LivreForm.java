@@ -16,6 +16,7 @@ public class LivreForm {
     private String auteur;
     private String editeur;
     private int anneePublication;
+    private int nbrExemplaire;
     private int nbrPages;
     private String genreLivre;
 
@@ -26,6 +27,7 @@ public class LivreForm {
                      String auteur,
                      String editeur,
                      int anneePublication,
+                     int nbrExemplaire,
                      int nbrPages,
                      String genreLivre) {
         this.id = id;
@@ -35,6 +37,7 @@ public class LivreForm {
         this.auteur = auteur;
         this.editeur = editeur;
         this.anneePublication = anneePublication;
+        this.nbrExemplaire = nbrExemplaire;
         this.nbrPages = nbrPages;
         this.genreLivre = genreLivre;
     }
@@ -51,6 +54,7 @@ public class LivreForm {
                 livre.getAuteur(),
                 livre.getEditeur(),
                 livre.getAnneePublication(),
+                livre.getNbrExemplaire(),
                 livre.getNbrPages(),
                 livre.getGenreLivre() == null ? null : String.valueOf(GenreLivre.valueOf(livre.getGenreLivre().toString())));
     }
@@ -71,6 +75,7 @@ public class LivreForm {
                 auteur,
                 editeur,
                 anneePublication,
+                nbrExemplaire,
                 nbrPages,
                 bGenreLivre);
         long oldId;

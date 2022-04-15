@@ -13,13 +13,14 @@ public class DVD extends Document {
     private int duree;
     private String genreFilm;
 
-    public DVD(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, int duree, String genreFilm) {
+    public DVD(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, int nbrExemplaire, int duree, String genreFilm) {
         this.setEtatDocument(etatDocument);
         this.setGenreDocument(genreDocument);
         this.setTitre(titre);
         this.setAuteur(auteur);
         this.setEditeur(editeur);
         this.setAnneePublication(anneePublication);
+        this.setNbrExemplaire(nbrExemplaire);
         this.duree = duree;
         this.genreFilm = genreFilm;
     }
