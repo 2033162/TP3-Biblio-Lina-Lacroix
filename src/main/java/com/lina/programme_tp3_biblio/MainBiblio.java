@@ -74,6 +74,14 @@ public class MainBiblio implements CommandLineRunner {
                 "H05C42",
                 "514-900-5698",
                 getDateFromLocalDate(2022, 2, 20));
+        final Client client2 = serviceClient.saveClient(
+                "Marvin",
+                "stuwart",
+                "Lasalle",
+                "Montreal",
+                "H05C42",
+                "514-900-5698",
+                getDateFromLocalDate(2022, 2, 22));
         final Reservation reservation = serviceReservation.saveReservation(
                 new SimpleDateFormat("dd/MM/yyyy").parse("05/10/2000"),
                 client,
@@ -83,7 +91,7 @@ public class MainBiblio implements CommandLineRunner {
                 new SimpleDateFormat("dd/MM/yyyy").parse("19/04/2022"),
                 0,
                 client,
-                dvd);
+                livre);
 
 
         System.out.println("\nCRUD - CD");
@@ -154,7 +162,7 @@ public class MainBiblio implements CommandLineRunner {
 
 
         System.out.println("\nFaire un emprunt");
-        System.out.println(serviceEmpruntDocuments.faireEmprunt(client, livre));
+        System.out.println(serviceEmpruntDocuments.faireEmprunt(client2, livre));
 
 
         System.out.println("\nListe des emprunts du client:");
@@ -171,6 +179,11 @@ public class MainBiblio implements CommandLineRunner {
             System.out.println(new DateFormatSymbols().getMonths()[i] + "  " + nbrEmpruntParMois[i]);
         }
         System.out.println();
+
+
+        System.out.println("\nRETOUR DOCUMENT EMPRUNTE");
+        System.out.println(serviceEmpruntDocuments.retourDocument(client, livre,
+                new SimpleDateFormat("dd/MM/yyyy").parse("22/04/2022")));
 
 
         /*System.out.println("\nDelete cd");

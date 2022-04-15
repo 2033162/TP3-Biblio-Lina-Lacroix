@@ -48,4 +48,6 @@ public class ServiceClient {
     public Optional<Client> getClient(long id) {
         return clientRepository.findById(id);
     }
+
+
 }

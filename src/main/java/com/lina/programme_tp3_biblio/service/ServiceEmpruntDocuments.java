@@ -23,8 +23,10 @@ public class ServiceEmpruntDocuments {
     private EmpruntDocumentRepository empruntDocumentRepository;
     private AmendeRepository amendeRepository;
 
-    public ServiceEmpruntDocuments(EmpruntDocumentRepository empruntDocumentRepository) {
+    public ServiceEmpruntDocuments(EmpruntDocumentRepository empruntDocumentRepository,
+                                   AmendeRepository amendeRepository) {
         this.empruntDocumentRepository = empruntDocumentRepository;
+        this.amendeRepository = amendeRepository;
     }
 
     public EmpruntDocuments saveEmpruntDocuments(Date dateInitial,
@@ -69,19 +71,14 @@ public class ServiceEmpruntDocuments {
         return amende * diff;
     }
 
-    public String faireEmprunt(Client client, Document document) {
-        String message = "";
-        boolean peutEmprunter = true;
-
-        double totalFrais = 0;
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
+    private double getTotalAmendes(Client client, Calendar today) {
+        double totalAmendes = 0;
 
         List<EmpruntDocuments> empruntDocuments = empruntDocumentRepository.getClientEmpruntRetard(client.getId());
         if (empruntDocuments.size() > 0) {
             for(int i = 0; i < empruntDocuments.size(); i++) {
                 EmpruntDocuments empruntDocument = empruntDocuments.get(i);
-                totalFrais = totalFrais + calculAmende(today, empruntDocument.getDateExpire());
+                totalAmendes = totalAmendes + calculAmende(today, empruntDocument.getDateExpire());
             }
         }
 
@@ -89,9 +86,20 @@ public class ServiceEmpruntDocuments {
         if (amendes.size() > 0) {
             for(int i = 0; i < amendes.size(); i++) {
                 Amende amende = amendes.get(i);
-                totalFrais = totalFrais + amende.getSommeAmende();
+                totalAmendes = totalAmendes + amende.getSommeAmende();
             }
         }
+
+        return totalAmendes;
+    }
+
+    public String faireEmprunt(Client client, Document document) {
+        String message = "";
+        boolean peutEmprunter = true;
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        double totalFrais = getTotalAmendes(client, today);
 
         if (totalFrais > 0) {
             message = "\nEmprunt interdit pour cause des amendes " + totalFrais + "$ \n";
@@ -130,7 +138,7 @@ public class ServiceEmpruntDocuments {
             var empruntDocument = new EmpruntDocuments(
                     today.getTime(),
                     dateExpire.getTime(),
-                    2,
+                    0,
                     client,
                     document);
             saveEmpruntDocuments(empruntDocument);
@@ -166,20 +174,24 @@ public class ServiceEmpruntDocuments {
 
     public String retourDocument(Client client, Document document, Date dateRetour) {
         String message = "";
-        double sommeAmende = 0;
         Calendar today = Calendar.getInstance();
         today.setTime(dateRetour);
 
-        EmpruntDocuments empruntDocument = getEmpruntDocuments(client.getId(), document.getId());
-        if (empruntDocument.getDateExpire().before(dateRetour)) {
-            sommeAmende = calculAmende(today, empruntDocument.getDateExpire());
+        EmpruntDocuments empruntDocuments = getEmpruntDocuments(client.getId(), document.getId());
+        if (empruntDocuments.getDateExpire().before(dateRetour)) {
+            double sommeAmende = calculAmende(today, empruntDocuments.getDateExpire());
 
-            Amende amende = new Amende(empruntDocument.getDateInitial(),
-                    empruntDocument.getDateExpire(), empruntDocument.getNbrRappel(), document, client, sommeAmende);
+            Amende amende = new Amende(empruntDocuments.getDateInitial(),
+                    empruntDocuments.getDateExpire(), empruntDocuments.getNbrRappel(), document,
+                    client, sommeAmende);
             amendeRepository.save(amende);
+            double totalFrais = getTotalAmendes(client, today);
+
+            message = "\nFrais d'amendes " + sommeAmende + "$" +
+                      "\nTotal des amendes " + totalFrais + "$";
         }
 
-        empruntDocumentRepository.delete(empruntDocument);
+        empruntDocumentRepository.delete(empruntDocuments);
 
         return message;
     }
