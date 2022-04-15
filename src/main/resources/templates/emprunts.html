@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emprunt</title>
+</head>
+<body>
+<h1>Page Emprunt</h1>
+<table>
+    <thead>
+        <th>Date Initial</th>
+        <th>Date expire</th>
+        <th>Nombre de rappel</th>
+    </thead>
+    <tbody>
+    <th:block th:each="emprunt, stat : ${emprunts}">
+        <tr>
+            <td th:text="${emprunt.getDateInitial()}">Lac</td>
+            <td th:text="${emprunt.getDateExpire()}">Lina</td>
+            <td th:text="${emprunt.getNbrRappel()}">Lac</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
