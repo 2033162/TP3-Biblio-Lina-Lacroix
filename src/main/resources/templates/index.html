@@ -6,9 +6,11 @@
 </head>
 <body>
     <h1 th:text="${h1Text}">Page index</h1>
-    <a th:href="@{'/clients'}">Clients</a>
-    <a th:href="@{'/livres'}">Livres</a>
-    <a th:href="@{'/clientcreate'}">Enregistrer client</a>
-    <a th:href="@{'/livrecreate'}">Enregistrer livre</a>
+    <ul>
+        <li><a th:href="@{'/clients'}">Clients</a></li>
+        <li><a th:href="@{'/livres'}">Livres</a></li>
+        <li><a th:href="@{'/clientcreate'}">Enregistrer client</a></li>
+        <li><a th:href="@{'/livrecreate'}">Enregistrer livre</a></li>
+    </ul>
 </body>
 </html>

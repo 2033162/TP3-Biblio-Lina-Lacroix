@@ -15,7 +15,6 @@
         <th>Code Postal</th>
         <th>Numero de telephone</th>
         <th>Date d'inscription</th>
-        <th>Nombre d'emprunt en cour</th>
     </thead>
     <tbody>
         <th:block th:each="client, stat : ${clients}">
@@ -27,7 +26,6 @@
                 <td th:text="${client.getCodePostal()}">Lac</td>
                 <td th:text="${client.getNumeroTelephone()}">Lina</td>
                 <td th:text="${client.getDateInscription()}">Lac</td>
-                <td th:text="${client.getNbrEmpruntEnCour()}">Lina</td>
             </tr>
         </th:block>
     </tbody>
