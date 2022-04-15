@@ -3,12 +3,7 @@ package com.lina.programme_tp3_biblio.forms;
 import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.modele.Document;
 import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
-import com.lina.programme_tp3_biblio.modele.EtatDocument;
 import lombok.Data;
-import lombok.ToString;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -45,8 +40,10 @@ public class EmpruntForm {
 
     public EmpruntForm(EmpruntDocuments empruntDocuments) {
         this(Long.toString(empruntDocuments.getId()),
-                empruntDocuments.getDateInitial() == null ? null : DATETIMEFORMATTER.format((TemporalAccessor) empruntDocuments.getDateInitial()),
-                empruntDocuments.getDateExpire() == null ? null : DATETIMEFORMATTER.format((TemporalAccessor) empruntDocuments.getDateExpire()),
+                empruntDocuments.getDateInitial() == null ? null :
+                        DATETIMEFORMATTER.format((TemporalAccessor) empruntDocuments.getDateInitial()),
+                empruntDocuments.getDateExpire() == null ? null :
+                        DATETIMEFORMATTER.format((TemporalAccessor) empruntDocuments.getDateExpire()),
                 empruntDocuments.getNbrRappel(),
                 empruntDocuments.getClient() == null ? null : String.valueOf(empruntDocuments.getClient()),
                 empruntDocuments.getDocument() == null ? null : String.valueOf(empruntDocuments.getDocument()));
@@ -55,18 +52,14 @@ public class EmpruntForm {
     public EmpruntDocuments toEmprunt() {
         LocalDate bDateInitial;
         LocalDate bDateExpire;
-        Client bClient;
-        Document bDocument;
+        Client bClient = null;
+        Document bDocument = null;
         try {
             bDateInitial = dateInitial == null ? null : LocalDate.parse(dateInitial, DATETIMEFORMATTER);
             bDateExpire = dateExpire == null ? null : LocalDate.parse(dateExpire, DATETIMEFORMATTER);
-            bClient = client == null ? null : ;
-            bDocument = document == null ? null : ;
         } catch (Exception e) {
             bDateInitial = null;
             bDateExpire = null;
-            bClient = null;
-            bDocument = null;
         }
         final EmpruntDocuments empruntDocuments = new EmpruntDocuments(
                 Date.from(bDateInitial.atStartOfDay(ZoneId.systemDefault()).toInstant()),

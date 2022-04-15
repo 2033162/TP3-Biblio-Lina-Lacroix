@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Retour livre</title>
+</head>
+<body>
+<form action="#" th:action="@{retourcreate}" th:object="${retourForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label></label></td>
+            <td><input type="text" th:field="*{}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
