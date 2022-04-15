@@ -35,6 +35,9 @@ public abstract class Document {
     @OneToMany(mappedBy = "document")
     List<EmpruntDocuments> empruntDocuments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "document")
+    List<Amende> amendes = new ArrayList<>();
+
     public Document(EtatDocument etatDocument, String genreDocument, String titre, String auteur, String editeur, int anneePublication, int nbrExemplaire) {
         this.genreDocument = genreDocument;
         this.etatDocument = etatDocument;
