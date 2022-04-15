@@ -43,15 +43,11 @@ public class ServiceClient {
         clientRepository.delete(client);
     }
 
-    public Client getClient(long clientId) {
-        return clientRepository.getById(clientId);
-    }
-
     public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(long id) {
+    public Optional<Client> getClient(long id) {
         return clientRepository.findById(id);
     }
 }

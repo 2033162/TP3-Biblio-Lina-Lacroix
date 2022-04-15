@@ -7,6 +7,7 @@ import com.lina.programme_tp3_biblio.repository.ReservationRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class ServiceReservation {
@@ -29,7 +30,7 @@ public class ServiceReservation {
         reservationRepository.delete(reservation);
     }
 
-    public Reservation getReservation(long reservationID) {
-        return reservationRepository.getById(reservationID);
+    public Optional<Reservation> getReservation(long reservationID) {
+        return reservationRepository.findById(reservationID);
     }
 }

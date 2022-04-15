@@ -6,8 +6,10 @@ import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
 import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ServiceEmpruntDocuments {
@@ -38,8 +40,8 @@ public class ServiceEmpruntDocuments {
         empruntDocumentRepository.delete(empruntDocuments);
     }
 
-    public EmpruntDocuments getEmpruntDocuments(long empruntDocumentsId) {
-        return empruntDocumentRepository.getById(empruntDocumentsId);
+    public Optional<EmpruntDocuments> getEmpruntDocuments(long empruntDocumentsId) {
+        return empruntDocumentRepository.findById(empruntDocumentsId);
     }
 
     public List<EmpruntDocuments> getClientEmprunt(long clientId) {
@@ -50,16 +52,27 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.faireEmprunt(client, document);
     }*/
 
-    /*public Long[] getNbrEmpruntParMois() {
+    public BigInteger[] getNbrEmpruntParMois() {
 
         List<Object[]> empruntParMois = empruntDocumentRepository.getNbrEmpruntParMois();
 
-        Long[] nbrEmpruntParMois = new Long[] {0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L};
+        BigInteger[] nbrEmpruntParMois = new BigInteger[] {BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0),
+                BigInteger.valueOf(0)};
         for(int i = 0; i < empruntParMois.size(); i++) {
             Object[] empruntMois = empruntParMois.get(i);
-            nbrEmpruntParMois[(int)empruntMois[0] - 1] = (Long)empruntMois[1];
+            nbrEmpruntParMois[(int)empruntMois[0] - 1] = (BigInteger)empruntMois[1];
         }
 
         return nbrEmpruntParMois;
-    }*/
+    }
 }

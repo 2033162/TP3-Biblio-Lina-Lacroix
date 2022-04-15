@@ -57,8 +57,8 @@ public class ServiceDocument {
         cdRepository.delete(cd);
     }
 
-    public CD getCD(long cdID) {
-        return cdRepository.getById(cdID);
+    public Optional<CD> getCD(long cdID) {
+        return cdRepository.findById(cdID);
     }
 
     public DVD saveDVD(EtatDocument etatDocument,
@@ -87,8 +87,8 @@ public class ServiceDocument {
         dvdRepository.delete(dvd);
     }
 
-    public DVD getDVD(long dvdID) {
-        return dvdRepository.getById(dvdID);
+    public Optional<DVD> getDVD(long dvdID) {
+        return dvdRepository.findById(dvdID);
     }
 
     public Livre saveLivre(EtatDocument etatDocument,
@@ -117,8 +117,8 @@ public class ServiceDocument {
         livreRepository.delete(livre);
     }
 
-    public Livre getLivre(long livreId) {
-        return livreRepository.getById(livreId);
+    public Optional<Livre> getLivre(long livreId) {
+        return livreRepository.findById(livreId);
     }
 
     public List<Livre> findAllLivres() {

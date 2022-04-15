@@ -72,7 +72,7 @@ public class ClientController {
                                    @PathVariable("id") String id) {
         logger.info("Into getClientRequest with id " + id);
         long clientId = getIdFromString(id);
-        final Optional<Client> clientById = serviceClient.findClientById(clientId);
+        final Optional<Client> clientById = serviceClient.getClient(clientId);
         clientForm = new ClientForm();
         if (clientById.isPresent()) {
             clientForm = new ClientForm(clientById.get());

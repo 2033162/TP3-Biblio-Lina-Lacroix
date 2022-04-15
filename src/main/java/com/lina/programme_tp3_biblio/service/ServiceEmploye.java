@@ -5,6 +5,8 @@ import com.lina.programme_tp3_biblio.modele.Fonction;
 import com.lina.programme_tp3_biblio.repository.EmployeRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class ServiceEmploye {
 
@@ -26,7 +28,7 @@ public class ServiceEmploye {
         employeRepository.delete(employe);
     }
 
-    public Employe getEmploye(long employeID) {
-        return employeRepository.getById(employeID);
+    public Optional<Employe> getEmploye(long employeID) {
+        return employeRepository.findById(employeID);
     }
 }
