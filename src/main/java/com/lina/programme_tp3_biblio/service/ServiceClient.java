@@ -23,16 +23,14 @@ public class ServiceClient {
                            String ville,
                            String codePostal,
                            String numeroTelephone,
-                           LocalDate dateInscription,
-                           int nbrEmpruntEnCour) {
+                           LocalDate dateInscription) {
         return clientRepository.save(new Client(nom,
                 prenom,
                 rue,
                 ville,
                 codePostal,
                 numeroTelephone,
-                dateInscription,
-                nbrEmpruntEnCour));
+                dateInscription));
     }
 
     public Client saveClient(Client client) {

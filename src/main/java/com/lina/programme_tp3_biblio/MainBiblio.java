@@ -73,16 +73,15 @@ public class MainBiblio implements CommandLineRunner {
                 "Montreal",
                 "H05C42",
                 "514-900-5698",
-                getDateFromLocalDate(2022, 2, 20),
-                1);
+                getDateFromLocalDate(2022, 2, 20));
         final Reservation reservation = serviceReservation.saveReservation(
                 new SimpleDateFormat("dd/MM/yyyy").parse("05/10/2000"),
                 client,
                 livre);
         final EmpruntDocuments empruntDocuments = serviceEmpruntDocuments.saveEmpruntDocuments(
-                new SimpleDateFormat("dd/MM/yyyy").parse("15/03/2018"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("04/01/2022"),
-                2,
+                new SimpleDateFormat("dd/MM/yyyy").parse("15/04/2022"),
+                new SimpleDateFormat("dd/MM/yyyy").parse("19/04/2022"),
+                0,
                 client,
                 dvd);
 

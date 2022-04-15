@@ -17,7 +17,6 @@ public class ClientForm {
     private String codePostal;
     private String numeroTelephone;
     private String dateInscription;
-    private int nbrEmpruntEnCour;
 
     public ClientForm(String id,
                       String nom,
@@ -26,8 +25,7 @@ public class ClientForm {
                   String ville,
                   String codePostal,
                   String numeroTelephone,
-                  String dateInscription,
-                  int nbrEmpruntEnCour) {
+                  String dateInscription) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -36,7 +34,6 @@ public class ClientForm {
         this.codePostal = codePostal;
         this.numeroTelephone = numeroTelephone;
         this.dateInscription = dateInscription;
-        this.nbrEmpruntEnCour = nbrEmpruntEnCour;
     }
 
     public ClientForm() {
@@ -51,8 +48,7 @@ public class ClientForm {
                 client.getVille(),
                 client.getCodePostal(),
                 client.getNumeroTelephone(),
-                client.getDateInscription() == null ? null : DATETIMEFORMATTER.format(client.getDateInscription()),
-                client.getNbrEmpruntEnCour());
+                client.getDateInscription() == null ? null : DATETIMEFORMATTER.format(client.getDateInscription()));
     }
 
     public Client toClient() {
@@ -68,8 +64,7 @@ public class ClientForm {
                 ville,
                 codePostal,
                 numeroTelephone,
-                bDate,
-                nbrEmpruntEnCour);
+                bDate);
         long oldId;
         try {
             oldId = Long.parseLong(id);

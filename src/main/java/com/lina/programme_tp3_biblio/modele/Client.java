@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,6 @@ public class Client {
     private String codePostal;
     private String numeroTelephone;
     private LocalDate dateInscription;
-    private int nbrEmpruntEnCour;
 
     @OneToMany(mappedBy = "client")
     List<Reservation> reservations = new ArrayList<>();
@@ -40,8 +38,7 @@ public class Client {
                   String ville,
                   String codePostal,
                   String numeroTelephone,
-                  LocalDate dateInscription,
-                  int nbrEmpruntEnCour) {
+                  LocalDate dateInscription) {
         this.nom = nom;
         this.prenom = prenom;
         this.rue = rue;
@@ -49,7 +46,6 @@ public class Client {
         this.codePostal = codePostal;
         this.numeroTelephone = numeroTelephone;
         this.dateInscription = dateInscription;
-        this.nbrEmpruntEnCour = nbrEmpruntEnCour;
     }
 
     @Override
@@ -61,8 +57,7 @@ public class Client {
                 ", ville='" + ville + '\'' +
                 ", codePostal='" + codePostal + '\'' +
                 ", numeroTelephone='" + numeroTelephone + '\'' +
-                ", dateInscription='" + dateInscription + '\'' +
-                ", nbrEmpruntEnCour=" + nbrEmpruntEnCour +
+                ", dateInscription='" + dateInscription +
                 '}';
     }
 }
