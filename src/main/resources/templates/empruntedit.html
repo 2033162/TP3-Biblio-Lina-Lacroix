@@ -2,9 +2,28 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CRUD emprunt</title>
 </head>
 <body>
-
+<form action="#" th:action="@{empruntcreate}" th:object="${empruntForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label>Date Initial</label></td>
+            <td><input type="text" th:field="*{dateInitial}"/></td>
+        </tr>
+        <tr>
+            <td><label>Date Expire</label></td>
+            <td><input type="text" th:field="*{dateExpire}"/></td>
+        </tr>
+        <tr>
+            <td><label>Nombre de rappel</label></td>
+            <td><input type="number" th:field="*{nbrRappel}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Enregistrer"/></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
