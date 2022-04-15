@@ -1,9 +1,6 @@
 package com.lina.programme_tp3_biblio.service;
 
-import com.lina.programme_tp3_biblio.modele.Amende;
-import com.lina.programme_tp3_biblio.modele.Client;
-import com.lina.programme_tp3_biblio.modele.Document;
-import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
+import com.lina.programme_tp3_biblio.modele.*;
 import com.lina.programme_tp3_biblio.repository.AmendeRepository;
 import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
 import org.springframework.stereotype.Component;
@@ -55,6 +52,10 @@ public class ServiceEmpruntDocuments {
 
     public Optional<EmpruntDocuments> getEmpruntDocuments(long empruntDocumentsId) {
         return empruntDocumentRepository.findById(empruntDocumentsId);
+    }
+
+    public List<EmpruntDocuments> findAllEmpruntDocuments() {
+        return empruntDocumentRepository.findAll();
     }
 
     public List<EmpruntDocuments> getClientEmprunt(long clientId) {

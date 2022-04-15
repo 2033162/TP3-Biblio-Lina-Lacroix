@@ -4,6 +4,7 @@ import com.lina.programme_tp3_biblio.modele.Client;
 import com.lina.programme_tp3_biblio.modele.Document;
 import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
 import com.lina.programme_tp3_biblio.modele.EtatDocument;
+import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.JoinColumn;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
+@Data
 public class EmpruntForm {
     private static DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String id;
@@ -66,10 +68,9 @@ public class EmpruntForm {
             bClient = null;
             bDocument = null;
         }
-        Date.from(bDateInitial.atStartOfDay(ZoneId.systemDefault()).toInstant());
         final EmpruntDocuments empruntDocuments = new EmpruntDocuments(
-                bDateInitial,
-                bDateExpire,
+                Date.from(bDateInitial.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                Date.from(bDateExpire.atStartOfDay(ZoneId.systemDefault()).toInstant()),
                 nbrRappel,
                 bClient,
                 bDocument);
