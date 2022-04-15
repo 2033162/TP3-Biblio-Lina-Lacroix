@@ -63,6 +63,10 @@ public class ServiceClient {
         return clientRepository.findById(id);
     }
 
+    public Client findByName(String nomPrenom) {
+        return clientRepository.findByName(nomPrenom);
+    }
+
     public String listeFrais(Client client) {
         String listeFrais = "";
         double totalAmendes = 0;

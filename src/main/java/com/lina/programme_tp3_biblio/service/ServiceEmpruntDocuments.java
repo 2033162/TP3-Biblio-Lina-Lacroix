@@ -6,7 +6,6 @@ import com.lina.programme_tp3_biblio.repository.EmpruntDocumentRepository;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

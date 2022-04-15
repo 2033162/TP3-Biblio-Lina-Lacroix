@@ -1,7 +1,11 @@
 package com.lina.programme_tp3_biblio.controllers;
 
 import com.lina.programme_tp3_biblio.forms.EmpruntForm;
+import com.lina.programme_tp3_biblio.modele.Client;
+import com.lina.programme_tp3_biblio.modele.Document;
 import com.lina.programme_tp3_biblio.modele.EmpruntDocuments;
+import com.lina.programme_tp3_biblio.service.ServiceClient;
+import com.lina.programme_tp3_biblio.service.ServiceDocument;
 import com.lina.programme_tp3_biblio.service.ServiceEmpruntDocuments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,9 +29,15 @@ public class EmpruntController {
     Logger logger = LoggerFactory.getLogger(EmpruntController.class);
 
     private ServiceEmpruntDocuments serviceEmpruntDocuments;
+    private ServiceClient serviceClient;
+    private ServiceDocument serviceDocument;
 
-    public EmpruntController(ServiceEmpruntDocuments serviceEmpruntDocuments) {
+    public EmpruntController(ServiceEmpruntDocuments serviceEmpruntDocuments,
+                             ServiceClient serviceClient,
+                             ServiceDocument serviceDocument) {
         this.serviceEmpruntDocuments = serviceEmpruntDocuments;
+        this.serviceClient = serviceClient;
+        this.serviceDocument = serviceDocument;
     }
 
     @GetMapping("/emprunt")
@@ -44,10 +57,20 @@ public class EmpruntController {
 
     @PostMapping(value = {"/empruntcreate"})
     public RedirectView empruntPost(@ModelAttribute EmpruntForm empruntForm,
-                                  BindingResult errors,
-                                  RedirectAttributes redirectAttributes) {
+                                    BindingResult errors,
+                                    RedirectAttributes redirectAttributes) throws ParseException {
         logger.info("emprunt: " + empruntForm);
-        final EmpruntDocuments empruntDocuments = serviceEmpruntDocuments.saveEmpruntDocuments(empruntForm.toEmprunt());
+
+        Client client = serviceClient.findByName(empruntForm.getClient());
+        List<Document> documents = serviceDocument.searchDocument(empruntForm.getTitre(), empruntForm.getAuteur(),
+                Integer.valueOf(empruntForm.getAnneePublication()), "livre");
+
+        final EmpruntDocuments empruntDocuments = serviceEmpruntDocuments.saveEmpruntDocuments(
+                new SimpleDateFormat("yyyy/mm/dd").parse(empruntForm.getDateInitial()),
+                new SimpleDateFormat("yyyy/mm/dd").parse(empruntForm.getDateExpire()),
+                empruntForm.getNbrRappel(),
+                client,
+                documents.get(0));
         empruntForm.setId(Long.toString(empruntDocuments.getId()));
 
         redirectAttributes.addFlashAttribute("empruntForm", empruntForm);
@@ -61,8 +84,8 @@ public class EmpruntController {
 
     @GetMapping(value = {"/empruntedit/{id}"})
     public String getEmpruntRequest(@ModelAttribute EmpruntForm empruntForm,
-                                  Model model,
-                                  @PathVariable("id") String id) {
+                                    Model model,
+                                    @PathVariable("id") String id) {
         logger.info("Into getEmpruntRequest with id " + id);
         long empruntId = getIdFromString(id);
         final Optional<EmpruntDocuments> empruntById = serviceEmpruntDocuments.getEmpruntDocuments(empruntId);

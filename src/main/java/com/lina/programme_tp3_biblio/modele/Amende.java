@@ -2,7 +2,6 @@ package com.lina.programme_tp3_biblio.modele;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
