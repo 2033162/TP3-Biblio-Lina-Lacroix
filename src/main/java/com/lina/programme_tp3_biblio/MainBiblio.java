@@ -27,6 +27,8 @@ public class MainBiblio implements CommandLineRunner {
     private ServiceEmpruntDocuments serviceEmpruntDocuments;
     @Autowired
     private ServiceReservation serviceReservation;
+    @Autowired
+    private ServiceAmende serviceAmende;
 
     public static void main(String[] args) {
         SpringApplication.run(MainBiblio.class, args);
@@ -184,9 +186,14 @@ public class MainBiblio implements CommandLineRunner {
         System.out.println("\nRETOUR DOCUMENT EMPRUNTE");
         System.out.println(serviceEmpruntDocuments.retourDocument(client, livre,
                 new SimpleDateFormat("dd/MM/yyyy").parse("22/04/2022")));
+        System.out.println();
 
 
-        /*System.out.println("\nDelete cd");
+        System.out.println("\nLISTE DES FRAIS");
+        System.out.println(serviceClient.listeFrais(client));
+
+
+        System.out.println("\nDelete cd");
         System.out.println(cd);
         serviceDocument.removeCD(cd);
 
@@ -202,9 +209,16 @@ public class MainBiblio implements CommandLineRunner {
         System.out.println(reservation);
         serviceReservation.removeReservation(reservation);
 
+        System.out.println("\nDelete amende");
+        serviceAmende.deleteAllAmende();
+
+        System.out.println("\nDelete empruntDocument");
+        serviceEmpruntDocuments.deleteAllEmpruntDocuments();
+
         System.out.println("\nDelete client");
         System.out.println(client);
         serviceClient.removeClient(client);
+        serviceClient.removeClient(client2);
 
         System.out.println("\nDelete livre");
         System.out.println(livre);
@@ -212,11 +226,7 @@ public class MainBiblio implements CommandLineRunner {
 
         System.out.println("\nDelete employe");
         System.out.println(employe);
-        serviceEmploye.removeEmploye(employe);*/
-
-        /*System.out.println("\nDelete empruntDocument");
-        serviceEmpruntDocuments.removeEmpruntDocuments(clientEmprunt.get(0));
-        System.out.println(clientEmprunt.get(0));*/
+        serviceEmploye.removeEmploye(employe);
     }
 
     private LocalDate getDateFromLocalDate(int year, int month, int day) {

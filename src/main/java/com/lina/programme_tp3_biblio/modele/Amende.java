@@ -20,12 +20,10 @@ public class Amende {
 
     @ManyToOne
     @JoinColumn(name = "client")
-    @ToString.Exclude
     private Client client;
 
     @ManyToOne
     @JoinColumn(name = "document")
-    @ToString.Exclude
     private Document document;
     private double sommeAmende;
 

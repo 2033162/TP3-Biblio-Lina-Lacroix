@@ -49,6 +49,10 @@ public class ServiceEmpruntDocuments {
         empruntDocumentRepository.delete(empruntDocuments);
     }
 
+    public void deleteAllEmpruntDocuments() {
+        empruntDocumentRepository.deleteAll();
+    }
+
     public Optional<EmpruntDocuments> getEmpruntDocuments(long empruntDocumentsId) {
         return empruntDocumentRepository.findById(empruntDocumentsId);
     }
@@ -65,20 +69,20 @@ public class ServiceEmpruntDocuments {
         return empruntDocumentRepository.getEmpruntDocuments(clientId, documentId);
     }
 
-    private double calculAmende(Calendar today, Date dateExpire) {
+    public double calculAmende(Calendar today, Date dateExpire) {
         long diffInMillies = Math.abs(today.getTime().getTime() - dateExpire.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         return amende * diff;
     }
 
-    private double getTotalAmendes(Client client, Calendar today) {
+    public double getTotalAmendes(Client client, Calendar today) {
         double totalAmendes = 0;
 
         List<EmpruntDocuments> empruntDocuments = empruntDocumentRepository.getClientEmpruntRetard(client.getId());
         if (empruntDocuments.size() > 0) {
             for(int i = 0; i < empruntDocuments.size(); i++) {
                 EmpruntDocuments empruntDocument = empruntDocuments.get(i);
-                totalAmendes = totalAmendes + calculAmende(today, empruntDocument.getDateExpire());
+                totalAmendes += calculAmende(today, empruntDocument.getDateExpire());
             }
         }
 
@@ -86,7 +90,7 @@ public class ServiceEmpruntDocuments {
         if (amendes.size() > 0) {
             for(int i = 0; i < amendes.size(); i++) {
                 Amende amende = amendes.get(i);
-                totalAmendes = totalAmendes + amende.getSommeAmende();
+                totalAmendes += amende.getSommeAmende();
             }
         }
 
